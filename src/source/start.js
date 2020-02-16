@@ -374,8 +374,8 @@ THREE.SkinnedMesh.prototype.raycast = (function() {
 //   }
 // }
 
-export var stats = new Stats();
-export var Q3 = {};
+// export var stats = new Stats();
+var Q3 = window.Q3;
 export function start(elementId, data, editorMode) {
 	initStopDoingDumbShitProperties();
 	Q3.data = {}; //the empty JSON, before init with 'start'
