@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import * as THREE from 'three';
+import TWEEN from '@tweenjs/tween.js';
 // import Modal from 'datsun/modals/scene.gltf';
 // import 'datsun/addons/GLTFLoader';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
@@ -10,7 +11,7 @@ import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls
 
 import './index.css';
 
-// console.log(Modal);
+console.log(TWEEN);
 
 export default class ThreeWrapper extends Component {
 	constructor() {
@@ -29,17 +30,59 @@ export default class ThreeWrapper extends Component {
 	}
 	onClickButton = event => {
 		console.log(event);
-		this.camera.rotation.y = (45 / 180) * Math.PI;
-		this.camera.position.x = 800;
-		this.camera.position.y = 800;
-		this.camera.position.z = 1000;
-		this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-		this.trackball = new TrackballControls(this.camera, this.renderer.domElement);
-		this.animate();
+		// this.camera.rotation.y = (45 / 180) * Math.PI;
+		// this.camera.position.x = 800;
+		// this.camera.position.y = 800;
+		// this.camera.position.z = 1000;
+		// this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+		// this.trackball = new TrackballControls(this.camera, this.renderer.domElement);
+		// this.animate();
+		// this.tweenAnimation();
+		this.setupTween(this.camera.position.clone(), new THREE.Vector3(800, 800, 1000), 4500);
 	};
 	animate = () => {
 		this.renderer.render(this.scene, this.camera);
 		requestAnimationFrame(this.animate);
+		TWEEN.update();
+	};
+	setupTween = (position, target, duration) => {
+		// console.log(position, target, duration);
+		TWEEN.removeAll(); // remove previous tweens if needed
+
+		new TWEEN.Tween(position)
+			.to(target, duration)
+			.easing(TWEEN.Easing.Back.InOut)
+			.onUpdate(() => {
+				// debugger;
+				// copy incoming position into capera position
+				this.camera.position.copy(position);
+				this.renderControls();
+				this.renderTrackBallControls();
+			})
+			.start();
+		this.animate();
+	};
+	renderControls = () => new OrbitControls(this.camera, this.renderer.domElement);
+	renderTrackBallControls = () => new TrackballControls(this.camera, this.renderer.domElement);
+	tweenAnimation = () => {
+		this.controls.enabled = false;
+		var duration = 2500;
+		var position = new THREE.Vector3().copy(this.camera.position);
+		var targetPosition = new THREE.Vector3(2.4, 2.2, -0.6);
+
+		var tween = new TWEEN.Tween(position)
+			.to(targetPosition, duration)
+			.easing(TWEEN.Easing.Back.InOut)
+			.onUpdate(function() {
+				camera.position.copy(position);
+				camera.lookAt(controls.target);
+			})
+			.onComplete(function() {
+				camera.position.copy(targetPosition);
+				camera.lookAt(controls.target);
+				controls.enabled = true;
+			})
+			.start();
 	};
 	addLight = (x, y, z, color, intensity) => {
 		var directionalLight = new THREE.DirectionalLight(color, intensity);
