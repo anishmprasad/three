@@ -2,7 +2,7 @@ import { getOnBeforeCompile } from './../rendering/getOnBeforeCompile';
 
 import { computeFontSize } from '../2DObjects/TextLiveLabel';
 
-import { IconCanvas, HotspotSpriteMaterial, generateSpriteGeometry } from 'assets/sprites/IconTexture';
+import { IconCanvas, HotspotSpriteMaterial, generateSpriteGeometry } from 'source/assets/sprites/IconTexture';
 
 //import THREE from "three";
 import RenderManager from '../rendering/render-manager';

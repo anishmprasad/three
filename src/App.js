@@ -4,6 +4,9 @@ import React, { Component } from 'react';
 import './App.css';
 import { start } from 'source/start';
 import source from './source.json';
+import * as THREE from 'three';
+console.log(THREE);
+console.log(source);
 
 export default class Start extends Component {
 	componentDidMount() {
