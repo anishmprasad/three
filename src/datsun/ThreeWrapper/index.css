@@ -1,0 +1,11 @@
+#button {
+	width: 200px;
+	height: 200px;
+	color: red;
+	z-index: 46;
+	position: absolute;
+	top: 0;
+}
+.three-wrapper {
+	position: relative;
+}
