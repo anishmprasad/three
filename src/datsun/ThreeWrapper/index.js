@@ -38,7 +38,7 @@ export default class ThreeWrapper extends Component {
 		// this.trackball = new TrackballControls(this.camera, this.renderer.domElement);
 		// this.animate();
 		// this.tweenAnimation();
-		this.setupTween(this.camera.position.clone(), new THREE.Vector3(800, 800, 1000), 4500);
+		this.setupTween(this.camera.position.clone(), new THREE.Vector3(800, 800, 1000), 2500);
 	};
 	animate = () => {
 		this.renderer.render(this.scene, this.camera);
