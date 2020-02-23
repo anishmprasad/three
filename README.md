@@ -1,1 +1,4 @@
 # three
+
+# LICENCE
+MIT
